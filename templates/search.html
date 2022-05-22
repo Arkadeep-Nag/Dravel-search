@@ -1,0 +1,582 @@
+<html>
+    <head>
+        <title>{{ data.search_query }} - Dravel</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/globals.css">
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/search-dravel.appspot.com/o/branding-main-logo.png?alt=media&token=3ac58502-bea9-4cf4-8993-78e3e2229515">
+        <link rel="music" href="https://cdn.pixabay.com/download/audio/2021/08/09/audio_cce5aa07bd.mp3?filename=8-bit-powerup-6768.mp3"></link>
+
+    </head>
+    <body class="body-search">
+        <div class="navabar">
+            <!--<a href="/"><h1 class="logoFavicon-Search"></h1></a>-->
+            <div class="searchContainer rtrcp">
+                <form class="searchForm">
+                    
+                    <button name="submit" class="elements search-btn"><i class='bx bx-search'></i></button>
+                    <input type="text" name="search" placeholder="Search anything"
+                    autoComplete="off" aria-label="Search anything" 
+                    value="{{ data.search_query }}"
+                    class="search-input"
+                    >
+                    
+                   
+                    <button name="submit" class="elements microphone-transcriber" id="ms-o"><i class='bx bx-microphone'></i></button>
+                </form>
+            </div>
+            
+        </div>
+        <div class="events">
+            <div class="events-container" id="events-container">
+            <div class="event-container" id="all"  onclick="window.location.href='/search/{{ data.search_query }}/type/all'" >
+            
+                <span class="event-span">All</span>
+            </div>
+           
+                <div class="event-container" id="imgc" onclick="window.location.href='/search/{{ data.search_query }}/type/images'">
+      
+                    <span class="event-span">Images</span>
+                </div>
+                
+            
+     
+                <div class="early-access">
+                    <span class="early-access-text">Early Access</span>
+        
+                </div>
+        
+            </div>
+      <!--      <div class="settings"><i class='bx bxs-cog'></i></div>-->
+        </div>
+
+     <div class="search-element-container" id="search-element-container">
+        <div class="loading-container" id="load"><div id="loading-bar-spinner" class="spinner"><div class="spinner-icon"></div></div></div>
+         </div>
+         <!--<section class="settings-container-container">
+           
+        </section>
+        <section class="settings-container">
+            <div class="header-settings">
+                <span>Settings</span>
+                <span class="close-settings"><i class='bx bx-x'></i></span>
+
+            </div>
+            <div class="all-else-settings">
+                <div class="choose-theme">
+                    <span class="theme-title">Choose Theme</span>
+                    
+                    <div class="theme-choices">
+                        <div class="theme-choice-container">
+                            <div class="light-theme-selector">
+                                <div class="text-uncd"></div>
+                                <div class="text-uncd"></div>
+                                <div class="text-uncd"></div>
+                                </div>
+                            <span class="theme-choice-title">
+                                <input type="radio" name="theme" value="light" id="light-theme" class="theme-choice-radio" checked>
+                                Light</span>
+                            </div>
+                        <div class="theme-choice-container">
+                            <div class="dark-theme-selector">
+                                <div class="text-uncd"></div>
+                                <div class="text-uncd"></div>
+                                <div class="text-uncd"></div>
+                                </div>
+                            <span class="theme-choice-title">
+                                <input type="radio" name="theme" value="dark" class="theme-choice-radio">
+                                Dark</span>
+                            </div>
+                            <div class="theme-choice-container">
+                            <div class="system-theme-selector">
+                                <div class="theme-light">
+                                    <div class="text-unce"></div>
+                                <div class="text-unce"></div>
+                                <div class="text-unce"></div>
+                                    </div>
+                                <div class="theme-dark">
+                                    <div class="text-unce"></div>
+                                <div class="text-unce"></div>
+                                <div class="text-unce"></div>
+                                    </div>
+                                </div>
+                            <span class="theme-choice-title">
+                                <input type="radio" name="theme" value="dark" class="theme-choice-radio">
+                                System</span>
+</div>
+                         
+                            </div>
+                        </div>
+                    </div>-->
+                   
+            </section>
+
+           <script>
+            var pttyp = "{{ data.type }}";
+            if(pttyp == "all"){
+                document.getElementById("all").classList.add("active");
+            }
+            if(pttyp == "images"){
+                document.getElementById("imgc").classList.add("active");
+            }
+            </script>
+        <script src="/static/main.js" type="text/javascript"></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+  import { getFirestore,
+    setDoc,
+    doc,
+    collection,
+    getDocs,
+    orderBy,
+    query,
+    limitToLast,
+where  } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+
+let previousRegisteredUserDetails = localStorage.getItem("userDetails");
+            
+                if(!previousRegisteredUserDetails){
+                    addDoc(collection(db, "users"), {
+                        browser: window.navigator.userAgent,
+                        previousSearch: [],
+                        
+                      }).then(data => {
+                        localStorage.setItem("userDetails", data.id);
+                    
+                      });
+                    
+                }  
+
+const firebaseConfig = {
+apiKey: "AIzaSyCBUgnNxGHyhlJSMWtCFMO6Fm8TL9C9GgM",authDomain: "search-dravel.firebaseapp.com",projectId: "search-dravel",storageBucket: "search-dravel.appspot.com",messagingSenderId: "1078035120970",appId: "1:1078035120970:web:de8a9a5d1c45013ab077b3",measurementId: "G-G9MHSLL68Q"};const app = initializeApp(firebaseConfig);const db = getFirestore(app);
+var qrs = `{{ data.search_query }}`;
+var qds = qrs.split(" ");
+const qs = getDocs(query(collection(db, "newData"),where("bodyData", "array-contains", `${qds[0].toLowerCase()}`)));
+        qs.then(querySnapshot => {
+            document.getElementById("load").remove();
+            const SearchDataUpdate = querySnapshot.docs
+        .map((doc) => ({ ...doc.data()}));
+        var ptype = '{{ data.type }}';
+       
+        if(ptype === "all") {
+            // if qds contains +
+      
+        
+        
+            var uiLength = document.createElement("p");
+            uiLength.innerHTML = `We found ${SearchDataUpdate.length} results for your query (You will see only English results)`;
+            uiLength.classList.add("ui-length");
+          
+                document.getElementById("search-element-container").appendChild(uiLength);
+            var req = qrs
+          
+            if(req.includes("+")){
+               var rev = req.split("+");
+               console.log(rev);
+               var sum = 0;
+               var muli = 1;
+               var result = [];
+               
+            for(let i = 0; i < rev.length ; i++){
+                console.log(i+" "+rev[i]);
+                
+                parseInt(rev[i]);
+                
+                if(!isNaN(rev[i])){
+                    console.log(muli + "muli");
+                    if(muli != 1){
+                        sum = sum + muli;
+                        muli = 1;
+                    }
+                    else{
+                        sum = sum + parseInt(rev[i]);
+                    }
+                }
+
+                var l = ''
+                if(i != (rev.length)-1){
+                    l = '+';
+                }
+                result.push(rev[i] + l);
+
+                
+            }
+var lot = document.createElement("div");
+lot.classList.add("Maths-result-container");
+lot.innerHTML = `<div class="Math-result-text">
+    <span class="letteres">
+        ${
+            result.join("")
+        }
+    </span>
+    <span class="Math-result-text-title">
+   
+    ${sum}
+
+    </span>
+    </div>
+    <div class="opt-buttons">
+        <button class="opt-button">
+            <span class="opt-button-text">
+               1
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                2
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                3
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                4
+            </span>    
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                5
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                6
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                7
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                8
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                9
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                0
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                .
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                +
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                -
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                %
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                *
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                /
+            </span>
+        </button>
+        <button class="opt-button eqx">
+            <span class="opt-button-text">
+                =
+            </span>
+        </button>
+        <button class="opt-button">
+            <span class="opt-button-text">
+                C
+            </span>
+        </button>
+        `
+document.getElementById("search-element-container").appendChild(lot);
+
+                      
+                
+                // if qds contains /
+             
+            }
+            
+            SearchDataUpdate.slice(0,10).forEach(element => {
+     
+                var x = document.createElement("div");
+                x.className = "search-element";
+                var y = document.createElement("div");
+                y.className = "search-title-container";
+                var z = document.createElement("a");
+                z.className = "search-title";
+                z.id="search-title";
+                var a = document.createElement("a");
+                a.className = "search-title-link";
+                a.href = element.url;
+                z.href = element.url;
+                a.innerHTML = element.url;
+                z.innerHTML = element.title;
+                y.appendChild(z);
+                y.appendChild(a);
+                var wiklev = []
+                var desc = element.description.split(" ").slice(0,50).join(" ");
+                if(element.url.includes("wikipedia")){
+                    wiklev.push(element);
+                    console.log(wiklev);
+
+
+                }
+                x.appendChild(y);
+                
+                var b = document.createElement("div");
+                b.className = "search-body-container";
+                var c = document.createElement("span");
+                c.className = "search-body";
+                c.innerHTML = desc;
+                b.appendChild(c);
+                x.appendChild(b);
+                if(element.verified){
+                    var v = document.createElement("div");
+                    v.className = "search-verified-container";
+                    var d = document.createElement("span");
+                    d.className = "search-verified";
+                    d.innerHTML = "<i class='bx bx-badge-check'></i> Safe Site";
+                    v.appendChild(d);
+                    b.appendChild(v);
+                }
+                else {
+                    var v = document.createElement("div");
+                    v.className = "search-verified-container";
+                    var d = document.createElement("span");
+                    d.className = "search-nverified";
+                    d.innerHTML = "<i class='bx bx-error-alt' ></i> This site might posses threat";
+                    v.appendChild(d);
+                    b.appendChild(v);
+                }
+                var parent = document.getElementById("search-element-container");
+                
+                var english = /^[A-Za-z0-9]*$/;
+                if(english.test(desc.substring(0,1))){
+                    parent.appendChild(x);
+    
+                }
+                
+                
+               
+    
+            });
+            if(SearchDataUpdate.length === 0) {
+                var noSearchResults = `
+                <div class="no-show-items">
+                    <div class="img-no-show">
+                        </div>
+                  
+                     <div class="show-msg-find">
+                         <div class="show-msg-find-title">
+                             <h1>No Results Found</h1>
+                             </div>
+                         <div class="show-msg-find-desc">
+                             <p>Try searching for something else</p>
+                             <p>Can have problems with the words you searched for</p>
+                             <p>Try refreshing it</p>
+                             <button class="sbt-link" >Submit a new site</button>
+                             </div>
+                            
+                         </div>
+                     </div>
+                `
+                if(!req.includes("+")){
+                document.getElementById("search-element-container").innerHTML += noSearchResults;}
+            }
+            let pagination = []
+   
+            //create pagination
+            
+        /**    for(let i = 1; i<=Math.ceil(SearchDataUpdate.length/10); i++){
+                pagination.push(i)
+            }
+            var containerPagination = document.createElement("div");
+                containerPagination.className = "pagination-container";
+                containerPagination.id="pagination-container";
+            pagination.forEach(element => {
+                var paginationElement = document.createElement("div");
+                paginationElement.className = "pagination-element";
+                var paginationElementLink = document.createElement("a");
+                paginationElementLink.href = `/search/{{ data.search_query }}/page/${element}/type/all`;
+                paginationElementLink.innerHTML = element;
+                paginationElement.appendChild(paginationElementLink);
+                var elecont = document.createElement("div");
+                elecont.className = "pagination-element-container";
+                elecont.appendChild(paginationElement);
+                containerPagination.appendChild(elecont);
+                document.getElementById("search-element-container").appendChild(containerPagination);
+                if(element == {{ data.page_number }}) {
+                    paginationElement.classList.add("page-active");
+                }
+            })    **/
+        }
+        
+        else if(ptype === "images") {
+            
+        var imagesContainer = document.createElement("div");
+        imagesContainer.className = "images-container";
+        imagesContainer.id = "images-container";
+        
+          SearchDataUpdate.forEach(element => {
+            var imgres = new Set(element.image);
+            imgres = [...imgres];
+
+            imgres.forEach((img)=>{
+                function getMeta(url, callback) {
+                    const emc = new Image();
+                    emc.src = url;
+                    emc.onload = function() { callback(this.width, this.height); }
+                }
+                getMeta(
+                  img,(width, height) => { 
+                      if(width >= 100 && height >= 100) {
+                          img = img
+                      }
+                      else {
+                          img = null
+                      }
+                      return img
+                  }
+                  
+                );
+
+                if(img != null) {
+                  
+                if((img.includes("https://") || img.includes("http://")) && (img.includes(".jpg") || img.includes(".png") || img.includes(".jpeg") || img.includes(".gif"))) {
+                    
+                    var x = document.createElement("div");
+                    x.className = "image-div"
+                    var y = document.createElement("img");
+                    y.src = img;
+                    y.className = "image-div-img";
+                    x.classList.add("image-div-img-prc");
+                    var z = document.createElement("span");
+                    var fk = element.description.split(" ").slice(0,20).join(" ");
+                    if(fk.length > 0) {
+                        fk = fk + "..."
+                    }
+                    else {
+                        fk = element.title
+                    }
+                    z.innerHTML = fk;
+                    z.className = "image-div-img-desc";
+                    var iclass = img.replace("/","-");
+                    y.classList.add(iclass);
+                    
+        
+    
+               
+                    
+               
+                        x.appendChild(y);
+                    x.appendChild(z);
+
+                    imagesContainer.appendChild(x);
+                    var parent = document.getElementById("search-element-container");
+                    parent.appendChild(imagesContainer);
+                }
+
+                }
+
+            })
+     
+        })
+    }
+    
+                
+        
+        });
+        </script>
+        <script type="text/javascript">
+                
+            let music = new Audio('https://cdn.pixabay.com/download/audio/2021/08/09/audio_cce5aa07bd.mp3?filename=8-bit-powerup-6768.mp3');
+             var mic = document.querySelector('.microphone-transcriber');
+             var search = document.querySelector('.search-input');
+             mic.addEventListener('click', startConverting);
+             var speechRecognizer = new webkitSpeechRecognition();// a new speech recognition object
+         
+             //function to start listening to voice and then convert it to text
+             function startConverting (e) {
+                 e.preventDefault();
+                 if('webkitSpeechRecognition' in window){
+     
+                     music.play();
+                     speechRecognizer.continuous = true;
+                     speechRecognizer.interimResults = true;
+                     speechRecognizer.lang = 'en-IN';
+                     speechRecognizer.start();
+                     var finalTranscripts = '';
+                     speechRecognizer.onresult = function(event){
+                         var interimTranscripts = '';
+                         for(var i = event.resultIndex; i < event.results.length; i++){
+                             var transcript = event.results[i][0].transcript;
+                             transcript.replace("\n", "<br>");
+                             if(event.results[i].isFinal){
+                                 finalTranscripts += transcript;
+                             }else{
+                                 interimTranscripts += transcript;
+                             }
+                         }
+                         search.value = finalTranscripts + interimTranscripts ;
+                         
+                         // after 4000s
+                         
+                    
+                     
+                         
+                             setTimeout(function(){
+                                 if(finalTranscripts.length > 0){
+                             music.play();
+                             search.value = finalTranscripts;
+                             window.location.href = '/search/' + finalTranscripts + '/page/1' + '/type/all';
+                                 }
+                                 else{
+                                     speechRecognizer.stop();
+                                     music.play();
+                                     alert('Sorry, I could not understand what you said');
+                                 }
+                         }, 6000);
+                         
+                         
+                     speechRecognizer.onerror = () => {
+                         music.play();
+                         alert('Sorry, I could not understand what you said');
+                     }
+                 };
+                 }else{
+                     r.innerHTML = 'No browser support. Please upgrade your browser';
+                 }
+             }
+             function doImagePush() {
+                window.location.href = "/search/{{ data.search_query }}/page/1/type/images"
+            }
+             function doaPush() {
+                window.location.href = "/search/{{ data.search_query }}/page/1/type/all"
+            }
+            
+            
+             //function to stop listening
+             
+         </script>
+    </body>
+    </html>

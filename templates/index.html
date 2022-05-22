@@ -1,0 +1,248 @@
+<html>
+    <head>
+        <title>Dravel-Early Access</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./static/globals.css">
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/search-dravel.appspot.com/o/branding-main-logo.png?alt=media&token=3ac58502-bea9-4cf4-8993-78e3e2229515">
+        <link rel="preconnect" href="https://cdn.pixabay.com/download/audio/2021/08/09/audio_cce5aa07bd.mp3?filename=8-bit-powerup-6768.mp3"></link>
+    </head>
+    <body>
+        
+
+        <section class="container-lg-all">
+            <main class="main-container">
+                <div class="logo">
+                    <h1 class="logoFavicon"></h1>
+                   
+                   
+                </div>
+          
+                    <div class="searchContainer">
+                        <form class="searchForm">
+                            <button name="submit" class="elements search-btn">
+                                <i class='bx bx-search' 
+                                ></i>
+                            </button>
+                            <input type="text" name="search" placeholder="Search anything"
+                            autoComplete="off" aria-label="Search anything" autofocus
+                            class="search-input"
+                            >
+                            <button name="submit" class="elements microphone-transcriber" id="ms-o"><i class='bx bx-microphone' id="ms-t"
+                                ></i></button>
+                        </form>
+                    </div>
+             
+            </main>
+           
+            <section class="Footer footer-relative">
+                <p>&copy; Arkadeep Nag, Open source </p>
+                <section class="footer-links">
+                    
+                    <a href="https://overpedia.com/privacy-policy/">Privacy Policy</a>
+                    <a href="https://overpedia.com/terms-of-use/">Terms of Use</a>
+                   
+                    <div class="settings"><i class='bx bxs-cog'></i></div>
+                    <div class="country"><sapn class="country-in"></span></div>
+                </section>
+       
+            </section>
+            </section>
+           <section class="settings-container-container">
+           
+            </section>
+            <section class="settings-container">
+                <div class="header-settings">
+                    <span>Settings</span>
+                    <span class="close-settings"><i class='bx bx-x'></i></span>
+    
+                </div>
+                <div class="all-else-settings">
+                    <div class="choose-theme">
+                        <span class="theme-title">Choose Theme</span>
+                        
+                        <div class="theme-choices">
+                            <div class="theme-choice-container">
+                                <div class="light-theme-selector">
+                                    <div class="text-uncd"></div>
+                                    <div class="text-uncd"></div>
+                                    <div class="text-uncd"></div>
+                                    </div>
+                                <span class="theme-choice-title">
+                                    <input type="radio" name="theme" value="light" id="light-theme" class="theme-choice-radio" checked>
+                                    Light</span>
+                                </div>
+                            <div class="theme-choice-container">
+                                <div class="dark-theme-selector">
+                                    <div class="text-uncd"></div>
+                                    <div class="text-uncd"></div>
+                                    <div class="text-uncd"></div>
+                                    </div>
+                                <span class="theme-choice-title">
+                                    <input type="radio" name="theme" value="dark" class="theme-choice-radio">
+                                    Dark</span>
+                                </div>
+                                <div class="theme-choice-container">
+                                <div class="system-theme-selector">
+                                    <div class="theme-light">
+                                        <div class="text-unce"></div>
+                                    <div class="text-unce"></div>
+                                    <div class="text-unce"></div>
+                                        </div>
+                                    <div class="theme-dark">
+                                        <div class="text-unce"></div>
+                                    <div class="text-unce"></div>
+                                    <div class="text-unce"></div>
+                                        </div>
+                                    </div>
+                                <span class="theme-choice-title">
+                                    <input type="radio" name="theme" value="dark" class="theme-choice-radio">
+                                    System</span>
+    </div>
+                             
+                                </div>
+                            </div>
+                        </div>
+                       
+                </section>
+            <script>
+              /**  fetch('https://api.ipregistry.co/?key=h7nrwu510rhdcklm')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (payload) {
+        
+                    document.querySelector(".country-in").innerHTML = payload.location.country.code;
+                });**/
+            </script>
+            <script src="/static/main.js" type="text/javascript"></script>
+            <script type="module">
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+                import { getFirestore,
+                  setDoc,
+                  doc,
+                  collection,
+                  getDocs,
+                  orderBy,
+                  query,
+                  addDoc,
+                  limitToLast,arrayUnion, arrayRemove,updateDoc,
+              where  } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+              
+              
+              const firebaseConfig = {
+              apiKey: "AIzaSyCBUgnNxGHyhlJSMWtCFMO6Fm8TL9C9GgM",authDomain: "search-dravel.firebaseapp.com",projectId: "search-dravel",storageBucket: "search-dravel.appspot.com",messagingSenderId: "1078035120970",appId: "1:1078035120970:web:de8a9a5d1c45013ab077b3",measurementId: "G-G9MHSLL68Q"};const app = initializeApp(firebaseConfig);const db = getFirestore(app)
+              let previousRegisteredUserDetails = localStorage.getItem("userDetails");
+            
+                if(!previousRegisteredUserDetails){
+                    addDoc(collection(db, "users"), {
+                        browser: window.navigator.userAgent,
+                        previousSearch: [],
+                        
+                      }).then(data => {
+                        localStorage.setItem("userDetails", data.id);
+                    
+                      });
+                    
+                }  
+               
+            </script>
+            
+            
+            <script type="text/javascript">
+                
+               let music = new Audio('https://cdn.pixabay.com/download/audio/2021/08/09/audio_cce5aa07bd.mp3?filename=8-bit-powerup-6768.mp3');
+               var load = document.createElement('div');
+                load.className = 'load';
+                load.style.width = '100%';
+                load.style.height = '100vh';
+                load.style.position = 'fixed';
+                load.style.top = '0';
+                load.style.left = '0';
+                load.style.background = '#ffffff';
+                load.style.zIndex = '9999';
+                load.style.display = 'flex';
+                load.style.justifyContent = 'center';
+                load.style.alignItems = 'center';
+                load.style.flexDirection = 'column';
+                load.style.opacity = '1';
+                load.style.transition = 'opacity 0.5s ease-in-out';
+                load.style.pointerEvents = 'none';
+                load.style.visibility = 'visible';
+                load.innerHTML = '<div class="load-container"><div class="load-animation"></div><div class="load-text">Loading</div></div>';
+                document.body.appendChild(load);
+                window.onload = function(){
+                    load.remove();
+                }
+                var mic = document.querySelector('.microphone-transcriber');
+                var search = document.querySelector('.search-input');
+                mic.addEventListener('click', startConverting);
+                var speechRecognizer = new webkitSpeechRecognition();// a new speech recognition object
+            
+                //function to start listening to voice and then convert it to text
+                function startConverting (e) {
+                    e.preventDefault();
+                    if('webkitSpeechRecognition' in window){
+        
+        
+                        speechRecognizer.continuous = true;
+                        speechRecognizer.interimResults = true;
+                        speechRecognizer.lang = 'en-IN';
+                        speechRecognizer.start();
+                        var finalTranscripts = '';
+                        speechRecognizer.onresult = function(event){
+                            var interimTranscripts = '';
+                            for(var i = event.resultIndex; i < event.results.length; i++){
+                                var transcript = event.results[i][0].transcript;
+                                transcript.replace("\n", "<br>");
+                                if(event.results[i].isFinal){
+                                    finalTranscripts += transcript;
+                                }else{
+                                    interimTranscripts += transcript;
+                                }
+                            }
+                            speechRecognizer.onend = function(){
+                                console.log('Speech recognition service disconnected');
+                            };
+                            speechRecognizer.onerror = function(event){
+                                alert('Error occurred in recognition: ' + event.error);
+                            };
+                            search.value = finalTranscripts + interimTranscripts ;
+                            
+                            // after 4000s
+                            
+                       
+                        
+                            
+         
+                                    if(finalTranscripts.length > 0){
+                        
+                                search.value = finalTranscripts;
+                                window.location.href = '/search/' + finalTranscripts + '/page/1' + '/type/all';
+                                    }
+                                    else{
+                                        speechRecognizer.stop();
+                                
+                                        alert('Sorry, I could not understand what you said');
+                                    }
+
+                  
+                            
+                            
+                        speechRecognizer.onerror = () => {
+                            music.play();
+                            alert('Sorry, I could not understand what you said');
+                        }
+                    };
+                    }else{
+                        r.innerHTML = 'No browser support. Please upgrade your browser';
+                    }
+                }
+                
+                //function to stop listening
+                
+            </script>
+            
+    </body>
+</html>
