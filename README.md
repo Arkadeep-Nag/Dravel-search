@@ -1,7 +1,7 @@
 # Dravel-search
 A search engine made with firebase that can actually search.
 You can try the search engine at https://dravel.herokuapp.com
-![image](https://user-images.githubusercontent.com/66512429/169683757-2b14b9a4-bf2b-425e-bacd-ac8460904b7c.png)
+![image](https://user-images.githubusercontent.com/66512429/169683899-a80d2e0c-d1d5-439d-b859-1fb5930488ac.png)
 ![image](https://user-images.githubusercontent.com/66512429/169683859-7ecc3a76-e656-435c-b70e-20e6013a4a5d.png)
 Algorithm behind the scenes :-
 1. Crawl the webpage (static) using bs4 . Save the body data in array in firebase firestore
