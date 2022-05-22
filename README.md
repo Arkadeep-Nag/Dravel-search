@@ -12,3 +12,11 @@ Dravel Search is based on firebase . It is now opensource so that the community 
 
 It is in the beta version and the image section is incomplete.
 I need to focus on some more important tasks and therefore I am making in the project public so that whatever you can you contribute to build it.
+![image](https://user-images.githubusercontent.com/66512429/169683757-2b14b9a4-bf2b-425e-bacd-ac8460904b7c.png)
+
+Technology involved :-
+1. Plain Javascript
+2. Python Flask Framework
+3. HTML 
+4. CSS
+5. Firebase
